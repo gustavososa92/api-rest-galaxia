@@ -1,5 +1,12 @@
-var moment = require("moment")
-moment().format()
+const {
+  aRadianes,
+  aGrados,
+  gradosNormalizadosde,
+  calcularCantidadDias,
+  orientacionDelTriangulo,
+  productoVectorial,
+  casoPlanetasAlineados,
+} = require("./helpers")
 
 class Galaxia {
   constructor() {
@@ -7,21 +14,42 @@ class Galaxia {
     this.betasoide = new Planeta(-3, 2000)
     this.vulcano = new Planeta(5, 1000)
     this.Datos = new Array()
-    this.anios = 1
+    this.anios = 10
+    this.SOL = new Posicion(0, 0)
   }
 
   calcularDatosClimaticos() {
     var cantidadDias = calcularCantidadDias(this.anios)
-
+    console.log("*****************************")
+    cantidadDias = 1500
+    console.log("ojo se esta calculando para ", cantidadDias, " dias")
+    // console.log("Años calculados: ", this.anios)
+    // console.log("Dias totales: ", cantidadDias)
+    console.log("*****************************")
     for (var i = 0; i < cantidadDias; i++) {
       var condicionDelDia = this.calcularParaDia(i)
-      this.guardarCondicion
+      this.guardarCondicion(condicionDelDia)
     }
   }
 
-  calcularParaDia(dia) {}
-}
+  calcularParaDia(dia) {
+    var P1 = this.ferengi.getPosicion(dia)
+    var P2 = this.vulcano.getPosicion(dia)
+    var P3 = this.betasoide.getPosicion(dia)
+    // console.log("A:", A)
+    // console.log("B:", B)
+    // console.log("C:", C)
+    var orientacionGeneral = orientacionDelTriangulo(P1, P2, P3)
 
+    if (orientacionGeneral == 0 || Math.abs(orientacionGeneral) < 1) {
+      console.log("---------------------------------------------")
+      console.log("Valor de producto Escalar: ", orientacionGeneral)
+      console.log("Dia que estan alineados:", dia)
+      return casoPlanetasAlineados(P1, P2, P3)
+    }
+  }
+  guardarCondicion(condicionDelDia) {}
+}
 class Planeta {
   constructor(velociadAngular, radio) {
     this.velociadAngular = velociadAngular
@@ -29,8 +57,12 @@ class Planeta {
   }
 
   getPosicion(tiempo) {
-    var radianes = aRadianes(this.velociadAngular * tiempo)
-    return new Posicion(this.getCoordenadaX(radianes), this.getCoordenadaY(radianes))
+    var angulo = gradosNormalizadosde(this.velociadAngular * tiempo)
+    var radianes = aRadianes(angulo)
+    var posicion = new Posicion(this.getCoordenadaX(radianes), this.getCoordenadaY(radianes))
+    posicion.anguloReal = this.velociadAngular * tiempo
+    posicion.anguloNormalizado = angulo
+    return posicion
   }
 
   getCoordenadaX(angulo) {
@@ -41,34 +73,19 @@ class Planeta {
     return this.radio * Math.sin(angulo)
   }
 }
-
 class Posicion {
   constructor(x, y) {
     this.x = x
     this.y = y
+    this.anguloReal = 0
+    this.anguloNormalizado = 0
   }
 
   vectorHacia(destino) {
     var posX = destino.x - this.x
-    var posY = destino.y - this.Y
+    var posY = destino.y - this.y
     return new Posicion(posX, posY)
   }
-}
-
-const aRadianes = (grados) => {
-  var gradosNormalizados = gradosNormalizadosDe(grados)
-  var pi = Math.PI
-  return gradosNormalizados * (pi / 180)
-}
-
-const gradosNormalizadosde = (grados) => {
-  return ((grados % 360) + 360) % 360
-}
-
-const calcularCantidadDias = (anios) => {
-  var finicio = moment()
-  var ffin = moment().add(anios, "y")
-  return ffin.diff(finicio, "days")
 }
 
 module.exports = { Galaxia }

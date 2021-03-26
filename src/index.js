@@ -1,11 +1,14 @@
 const express = require("express")
 const app = express()
+const { Galaxia } = require("./domain/galaxia")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use(require("./routes/routes"))
-console.log("TEST")
+
+// app.use(require("./domain/galaxia"))
+console.clear()
 new Galaxia().calcularDatosClimaticos()
 
 app.listen(3000)
