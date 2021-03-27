@@ -25,11 +25,11 @@ class Galaxia {
       this.guardarCondicion(this.climaDelDia(i))
     }
     // Consologueado de las respuestas a las preguntas
-    // console.log("Sequia: ", this.getPeriodosDeSequia())
-    // console.log("Lluvia: ", this.getPeriodosDeLluvia())
-    // console.log("Optimo: ", this.getPeriodosDeOptimasCondiciones())
-    // console.log("No Info: ", this.getPeriodosDeSinInfo())
-    // console.log("Dias de Maxima LLuvia: ", this.getDiasDeMaximaLLuvia())
+    console.log("Sequia: ", this.getPeriodosDeSequia())
+    console.log("Lluvia: ", this.getPeriodosDeLluvia())
+    console.log("Optimo: ", this.getPeriodosDeOptimasCondiciones())
+    console.log("No Info: ", this.getPeriodosDeSinInfo())
+    console.log("Dias de Maxima LLuvia: ", this.getDiasDeMaximaLLuvia())
 
     //Simulo una base de datos con un archivo para simplificar
     saveArrayToFile(this.datos)
@@ -60,19 +60,19 @@ class Galaxia {
   }
 
   getPeriodosDeSequia() {
-    return this.datos.filter((el) => el.clima == TiposDeClima().SEQUIA).length
+    return this.datos.filter((el) => el.clima == TiposDeClima.SEQUIA).length
   }
 
   getPeriodosDeLluvia() {
-    return this.datos.filter((el) => el.clima == TiposDeClima().LLUVIA).length
+    return this.datos.filter((el) => el.clima == TiposDeClima.LLUVIA).length
   }
 
   getPeriodosDeOptimasCondiciones() {
-    return this.datos.filter((el) => el.clima == TiposDeClima().OPTIMO).length
+    return this.datos.filter((el) => el.clima == TiposDeClima.OPTIMO).length
   }
 
   getPeriodosDeSinInfo() {
-    return this.datos.filter((el) => el.clima == TiposDeClima().NO_INFO).length
+    return this.datos.filter((el) => el.clima == TiposDeClima.NO_INFO).length
   }
 
   getDiasDeMaximaLLuvia() {

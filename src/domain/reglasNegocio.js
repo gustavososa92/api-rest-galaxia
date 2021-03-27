@@ -18,9 +18,9 @@ const estanAlineadas = (area) => {
 
 const casoPlanetasAlineados = (sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2) => {
   if (estanAlineadosConElSol(sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)) {
-    return TiposDeClima().SEQUIA
+    return TiposDeClima.SEQUIA
   } else {
-    return TiposDeClima().OPTIMO
+    return TiposDeClima.OPTIMO
   }
 }
 
@@ -31,9 +31,9 @@ const estanAlineadosConElSol = (sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSol
 
 const casoPlanetasNoAlineados = (sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2) => {
   if (solDentroDelTriangulo(sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)) {
-    return TiposDeClima().LLUVIA
+    return TiposDeClima.LLUVIA
   } else {
-    return TiposDeClima().NO_INFO
+    return TiposDeClima.NO_INFO
   }
 }
 
