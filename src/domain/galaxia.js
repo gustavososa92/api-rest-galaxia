@@ -25,6 +25,11 @@ class Galaxia {
     for (var i = 0; i < cantidadDias; i++) {
       this.guardarCondicion(this.climaDelDia(i))
     }
+    console.log("Sequia: ", this.getPeriodosDeSequia())
+    console.log("Lluvia: ", this.getPeriodosDeLluvia())
+    console.log("Optimo: ", this.getPeriodosDeOptimasCondiciones())
+    console.log("No Info: ", this.getPeriodosDeSinInfo())
+    console.log("Dias de Maxima LLuvia: ", this.getPeriodosDeMaximaLLuvia())
     console.log(this.datos)
   }
 
@@ -48,8 +53,19 @@ class Galaxia {
   }
 
   getPeriodosDeSequia() {
-    console.log(this.datos.filter((el) => el.clima == SEQUIA).length)
-    return this.datos.filter((el) => el.clima == SEQUIA).length
+    return this.datos.filter((el) => el.clima == "Sequia").length
+  }
+  getPeriodosDeLluvia() {
+    return this.datos.filter((el) => el.clima == "LLuvia").length
+  }
+  getPeriodosDeOptimasCondiciones() {
+    return this.datos.filter((el) => el.clima == "optimo").length
+  }
+  getPeriodosDeSinInfo() {
+    return this.datos.filter((el) => el.clima == "Sin Info").length
+  }
+  getPeriodosDeMaximaLLuvia() {
+    return this.datos.filter((el) => el.clima == "LLuvia").length
   }
 }
 class Planeta {
