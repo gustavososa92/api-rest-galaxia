@@ -7,8 +7,6 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use(require("./routes/routes"))
 
-// app.use(require("./domain/galaxia"))
-console.clear()
 new Galaxia().calcularDatosClimaticos()
 
 app.listen(3000)

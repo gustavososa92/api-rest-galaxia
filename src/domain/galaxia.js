@@ -1,43 +1,50 @@
-const { aRadianes, aGrados, gradosNormalizadosde, calcularCantidadDias } = require("./helpers")
-const { orientacionDelTriangulo, productoVectorial, casoPlanetasAlineados } = require("./reglasNegocio")
+const { aRadianes, gradosNormalizadosde, calcularCantidadDias } = require("./helpers")
+const {
+  orientacionDelTriangulo,
+  productoVectorial,
+  estanAlineadas,
+  casoPlanetasAlineados,
+  casoPlanetasNoAlineados,
+} = require("./reglasNegocio")
 
 class Galaxia {
   constructor() {
     this.ferengi = new Planeta(-1, 500)
     this.betasoide = new Planeta(-3, 2000)
     this.vulcano = new Planeta(5, 1000)
-    this.Datos = new Array()
+    this.datos = new Array()
     this.anios = 10
-    this.SOL = new Posicion(0, 0)
   }
 
   calcularDatosClimaticos() {
     var cantidadDias = calcularCantidadDias(this.anios)
-    console.log("*****************************")
-    // cantidadDias = 1500
-    // console.log("ojo se esta calculando para ", cantidadDias, " dias")
-    console.log("Años calculados: ", this.anios)
-    console.log("Dias totales: ", cantidadDias)
-    console.log("*****************************")
     for (var i = 0; i < cantidadDias; i++) {
       this.guardarCondicion(this.climaDelDia(i))
     }
+    console.log(this.datos)
   }
 
   climaDelDia(dia) {
     var P1 = this.ferengi.getPosicion(dia)
     var P2 = this.vulcano.getPosicion(dia)
     var P3 = this.betasoide.getPosicion(dia)
-    var orientacionGeneral = orientacionDelTriangulo(P1, P2, P3)
-    if (orientacionGeneral == 0) {
-      console.log("---------------------------------------------")
-      console.log("Valor de producto Escalar: ", orientacionGeneral)
-      console.log("round: ", Math.round(orientacionGeneral))
-      console.log("Dia que estan alineados:", dia)
-      return casoPlanetasAlineados(P1, P2, P3)
-    }
+    var sentidoDeP1P2P3 = orientacionDelTriangulo(P1, P2, P3)
+    var sentidoDeSolP2P3 = productoVectorial(P2, P3)
+    var sentidoDeSolP3P1 = productoVectorial(P3, P1)
+    var sentidoDeSolP1P2 = productoVectorial(P1, P2)
+    var clima = estanAlineadas(sentidoDeP1P2P3)
+      ? casoPlanetasAlineados(sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)
+      : casoPlanetasNoAlineados(sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)
+    console.log(clima)
+    var areaTriangulo = Math.abs(sentidoDeP1P2P3) / 2
+    return new CondicionHolder(dia, clima, areaTriangulo)
   }
-  guardarCondicion(condicionDelDia) {}
+
+  guardarCondicion(condicionDelDia) {
+    this.datos.push(condicionDelDia)
+  }
+
+  getPeriodosDeSequia
 }
 class Planeta {
   constructor(velociadAngular, radio) {
@@ -75,10 +82,16 @@ class Posicion {
   }
 }
 class CondicionHolder {
-  constructor(dia, clima) {
+  constructor(dia, clima, areaTriangulo) {
     this.dia = dia
     this.clima = clima
+    this.areaTriangulo = areaTriangulo
   }
 }
 
-module.exports = { Galaxia }
+const SEQUIA = "Sequia"
+const LLUVIA = "Lluvia"
+const OPTIMO = "Optimo"
+const NO_INFO = "Sin Info"
+
+module.exports = { Galaxia, SEQUIA, LLUVIA, OPTIMO, NO_INFO }
