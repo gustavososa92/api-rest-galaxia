@@ -13,10 +13,10 @@ const saveArrayToFile = async (arrayDatos) => {
   try {
     const file = fs.createWriteStream("./src/database/database.json")
     const path = file.path
-    const ultimoElemento = JSON.stringify(arrayDatos.pop())
+    const ultimoElemento = condicionDTO(arrayDatos.pop())
 
     file.write(`[\n`)
-    arrayDatos.map((el) => JSON.stringify(el)).forEach((estado) => file.write(`${estado},\n`))
+    arrayDatos.map((el) => condicionDTO(el)).forEach((estado) => file.write(`${estado},\n`))
     file.write(`${ultimoElemento}\n]`)
 
     file.on("finish", () => {
@@ -32,6 +32,10 @@ const saveArrayToFile = async (arrayDatos) => {
   } catch (e) {
     throw new Error("Error al generar el archivo:" + e.message)
   }
+}
+
+const condicionDTO = (condicion) => {
+  return JSON.stringify({ dia: condicion.dia, clima: condicion.clima })
 }
 
 module.exports = { getClimaDeldia, saveArrayToFile }
