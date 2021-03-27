@@ -5,6 +5,10 @@ const {
   estanAlineadas,
   casoPlanetasAlineados,
   casoPlanetasNoAlineados,
+  SEQUIA,
+  LLUVIA,
+  OPTIMO,
+  NO_INFO,
 } = require("./reglasNegocio")
 
 class Galaxia {
@@ -35,7 +39,6 @@ class Galaxia {
     var clima = estanAlineadas(sentidoDeP1P2P3)
       ? casoPlanetasAlineados(sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)
       : casoPlanetasNoAlineados(sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)
-    console.log(clima)
     var areaTriangulo = Math.abs(sentidoDeP1P2P3) / 2
     return new CondicionHolder(dia, clima, areaTriangulo)
   }
@@ -44,7 +47,10 @@ class Galaxia {
     this.datos.push(condicionDelDia)
   }
 
-  getPeriodosDeSequia
+  getPeriodosDeSequia() {
+    console.log(this.datos.filter((el) => el.clima == SEQUIA).length)
+    return this.datos.filter((el) => el.clima == SEQUIA).length
+  }
 }
 class Planeta {
   constructor(velociadAngular, radio) {
@@ -89,9 +95,4 @@ class CondicionHolder {
   }
 }
 
-const SEQUIA = "Sequia"
-const LLUVIA = "Lluvia"
-const OPTIMO = "Optimo"
-const NO_INFO = "Sin Info"
-
-module.exports = { Galaxia, SEQUIA, LLUVIA, OPTIMO, NO_INFO }
+module.exports = { Galaxia }

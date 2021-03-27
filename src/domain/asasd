@@ -1,3 +1,6 @@
+
+const { SEQUIA, LLUVIA, OPTIMO, NO_INFO } = require("./galaxia")
+
 const orientacionDelTriangulo = (A, B, C) => {
   var vectorU = A.vectorHacia(B)
   var vectorV = A.vectorHacia(C)
@@ -33,7 +36,6 @@ const casoPlanetasNoAlineados = (sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSol
     return NO_INFO
   }
 }
-
 const solDentroDelTriangulo = (sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2) => {
   //un punto P,es interior a un triangulo ABC, solo si el sentido/orientacion (producto vectorial) del triangulo formado por los puntos ABC
   //y los sentidos de cada triangulo formado por el punto P y un par de puntos, son iguales
@@ -44,19 +46,10 @@ const solDentroDelTriangulo = (sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3
   return signoP1P2P3 == signoSolP2P3 && signoSolP2P3 == signoSolP3P1 && signoSolP3P1 == signoSolP1P2
 }
 
-const SEQUIA = "Sequia"
-const LLUVIA = "Lluvia"
-const OPTIMO = "Optimo"
-const NO_INFO = "Sin Info"
-
 module.exports = {
   orientacionDelTriangulo,
   productoVectorial,
   estanAlineadas,
   casoPlanetasAlineados,
   casoPlanetasNoAlineados,
-  SEQUIA,
-  LLUVIA,
-  OPTIMO,
-  NO_INFO,
 }
