@@ -20,33 +20,9 @@ const calcularCantidadDias = (anios) => {
   return ffin.diff(finicio, "days")
 }
 
-const orientacionDelTriangulo = (A, B, C) => {
-  // console.log("A:", A)
-  // console.log("B:", B)
-  // console.log("C:", C)
-  var vectorU = A.vectorHacia(B)
-  var vectorV = A.vectorHacia(C)
-  // console.log(vectorU)
-  // console.log(vectorV)
-  var resultado = productoVectorial(vectorU, vectorV)
-  return resultado
-}
-const productoVectorial = (U, V) => {
-  return U.x * V.y - U.y * V.x
-}
-
-const casoPlanetasAlineados = (A, B, C) => {
-  console.log("A:", A)
-  console.log("B:", B)
-  console.log("C:", C)
-}
-
 module.exports = {
   aRadianes,
   aGrados,
   gradosNormalizadosde,
   calcularCantidadDias,
-  orientacionDelTriangulo,
-  productoVectorial,
-  casoPlanetasAlineados,
 }
