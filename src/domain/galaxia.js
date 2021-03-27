@@ -115,4 +115,6 @@ class CondicionHolder {
   }
 }
 
+new Galaxia().calcularDatosClimaticos()
+
 module.exports = { Galaxia }

@@ -1,15 +1,17 @@
 const express = require("express")
 const app = express()
-const { Galaxia } = require("./domain/galaxia")
+// const { Galaxia } = require("./domain/galaxia")
+
+app.set("port", process.env.PORT || 3000)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use(require("./routes/routes"))
 
-app.listen(3000)
+app.listen(app.get("port"), () => {
+  console.log(`Server on port ${app.get("port")}\n`)
+})
 
-console.log(`Server on port 3000\n`)
-
-var galaxia = new Galaxia()
-galaxia.calcularDatosClimaticos()
+// var galaxia = new Galaxia()
+// galaxia.calcularDatosClimaticos()

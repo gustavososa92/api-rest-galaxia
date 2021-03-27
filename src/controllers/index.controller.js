@@ -1,14 +1,5 @@
 const fs = require("fs")
 
-const getClimaDeldia = async (req, res) => {
-  try {
-    const id = req.query.dia
-    const response = await pool.query(`SELECT * FROM dias WHERE dia = $1`, [id])
-    res.status(200).json(response.rows)
-  } catch (e) {
-    throw new Error("Error al obtener el dato:" + e.message)
-  }
-}
 const saveArrayToFile = async (arrayDatos) => {
   try {
     const file = fs.createWriteStream("./src/database/database.json")
@@ -38,4 +29,4 @@ const condicionDTO = (condicion) => {
   return JSON.stringify({ dia: condicion.dia, clima: condicion.clima })
 }
 
-module.exports = { getClimaDeldia, saveArrayToFile }
+module.exports = { saveArrayToFile }
