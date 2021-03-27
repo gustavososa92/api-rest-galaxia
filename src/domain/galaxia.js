@@ -25,12 +25,12 @@ class Galaxia {
     for (var i = 0; i < cantidadDias; i++) {
       this.guardarCondicion(this.climaDelDia(i))
     }
+    // console.log(this.datos)
     console.log("Sequia: ", this.getPeriodosDeSequia())
     console.log("Lluvia: ", this.getPeriodosDeLluvia())
     console.log("Optimo: ", this.getPeriodosDeOptimasCondiciones())
     console.log("No Info: ", this.getPeriodosDeSinInfo())
-    console.log("Dias de Maxima LLuvia: ", this.getPeriodosDeMaximaLLuvia())
-    console.log(this.datos)
+    console.log("Dias de Maxima LLuvia: ", this.getDiasDeMaximaLLuvia())
   }
 
   climaDelDia(dia) {
@@ -56,16 +56,19 @@ class Galaxia {
     return this.datos.filter((el) => el.clima == "Sequia").length
   }
   getPeriodosDeLluvia() {
-    return this.datos.filter((el) => el.clima == "LLuvia").length
+    return this.datos.filter((el) => el.clima == "Lluvia").length
   }
   getPeriodosDeOptimasCondiciones() {
-    return this.datos.filter((el) => el.clima == "optimo").length
+    return this.datos.filter((el) => el.clima == "Optimo").length
   }
   getPeriodosDeSinInfo() {
     return this.datos.filter((el) => el.clima == "Sin Info").length
   }
-  getPeriodosDeMaximaLLuvia() {
-    return this.datos.filter((el) => el.clima == "LLuvia").length
+  getDiasDeMaximaLLuvia() {
+    //Cuando el area del triangulo es maxima, tambien lo es el perimetro
+    var maxima = Math.max(...this.datos.map((el) => el.areaTriangulo))
+    var listaFiltrada = this.datos.filter((el) => el.clima == "Lluvia" && el.areaTriangulo == maxima)
+    return listaFiltrada.map((el) => el.dia)
   }
 }
 class Planeta {
