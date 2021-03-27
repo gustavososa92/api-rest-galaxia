@@ -10,6 +10,7 @@ const {
   OPTIMO,
   NO_INFO,
 } = require("./reglasNegocio")
+const { saveArrayToFile } = require("../controllers/index.controller")
 
 class Galaxia {
   constructor() {
@@ -25,12 +26,12 @@ class Galaxia {
     for (var i = 0; i < cantidadDias; i++) {
       this.guardarCondicion(this.climaDelDia(i))
     }
-    // console.log(this.datos)
     console.log("Sequia: ", this.getPeriodosDeSequia())
     console.log("Lluvia: ", this.getPeriodosDeLluvia())
     console.log("Optimo: ", this.getPeriodosDeOptimasCondiciones())
     console.log("No Info: ", this.getPeriodosDeSinInfo())
     console.log("Dias de Maxima LLuvia: ", this.getDiasDeMaximaLLuvia())
+    saveArrayToFile(this.datos)
   }
 
   climaDelDia(dia) {
