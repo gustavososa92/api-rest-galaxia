@@ -9,15 +9,18 @@ const productoVectorial = (U, V) => {
 }
 
 const estanAlineadas = (area) => {
-  var minimo = 120000 // valor minimo para considerar que se encuentran alineados ()
+  //Adopto un valor de orientacion minimo para considerar que se encuentran alineados
+  //diferencias debido a que tengo puntos discretos (puntos por dia) y no tengo diametro de los planetas
+  //de otra manera solo estaria alineados cuando lo esten por los centros de los planetas
+  var minimo = 120000
   return Math.abs(area) <= minimo
 }
 
 const casoPlanetasAlineados = (sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2) => {
   if (estanAlineadosConElSol(sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)) {
-    return SEQUIA
+    return TiposDeClima().SEQUIA
   } else {
-    return OPTIMO
+    return TiposDeClima().OPTIMO
   }
 }
 
@@ -28,9 +31,9 @@ const estanAlineadosConElSol = (sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSol
 
 const casoPlanetasNoAlineados = (sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2) => {
   if (solDentroDelTriangulo(sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3P1, sentidoDeSolP1P2)) {
-    return LLUVIA
+    return TiposDeClima().LLUVIA
   } else {
-    return NO_INFO
+    return TiposDeClima().NO_INFO
   }
 }
 
@@ -44,10 +47,12 @@ const solDentroDelTriangulo = (sentidoDeP1P2P3, sentidoDeSolP2P3, sentidoDeSolP3
   return signoP1P2P3 == signoSolP2P3 && signoSolP2P3 == signoSolP3P1 && signoSolP3P1 == signoSolP1P2
 }
 
-const SEQUIA = "Sequia"
-const LLUVIA = "Lluvia"
-const OPTIMO = "Optimo"
-const NO_INFO = "Sin Info"
+class TiposDeClima {
+  static SEQUIA = "Sequia"
+  static LLUVIA = "Lluvia"
+  static OPTIMO = "Optimo"
+  static NO_INFO = "Sin Info"
+}
 
 module.exports = {
   orientacionDelTriangulo,
@@ -55,8 +60,5 @@ module.exports = {
   estanAlineadas,
   casoPlanetasAlineados,
   casoPlanetasNoAlineados,
-  SEQUIA,
-  LLUVIA,
-  OPTIMO,
-  NO_INFO,
+  TiposDeClima,
 }

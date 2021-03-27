@@ -3,6 +3,10 @@ const router = Router()
 const underscore = require("underscore")
 const datosClima = require("./../database/database.json")
 
+router.get("/", (req, res) => {
+  res.status(200).json("ONLINE")
+})
+
 router.get("/clima", async (req, res) => {
   try {
     const id = req.query.dia

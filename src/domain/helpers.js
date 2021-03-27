@@ -12,7 +12,7 @@ const gradosNormalizadosde = (grados) => {
 
 const calcularCantidadDias = (anios) => {
   //para tener en cuenta los años bisiestos
-  //se calcula de hoy a 10 años
+  //se calcula de hoy(fecha ejecucion) a 10 años
   var finicio = moment()
   var ffin = moment().add(anios, "y")
   return ffin.diff(finicio, "days")
